@@ -7,7 +7,7 @@ const useStyles = makeStyles((theme) => ({
   signInBtn: { width: "50%" },
 }));
 
-const ButtonElement = ({ label }) => {
+const ButtonElement = ({ label, handleClick }) => {
   const classes = useStyles();
 
   return (
@@ -16,6 +16,7 @@ const ButtonElement = ({ label }) => {
       size="small"
       className={classes.signInBtn}
       sx={{ backgroundColor: "#57C898", color: "white" }}
+      onClick={() => handleClick()}
     >
       {label}
     </Button>

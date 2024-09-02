@@ -5,7 +5,7 @@ import { TextField } from "@mui/material";
 
 const useStyles = makeStyles((theme) => ({}));
 
-const TextInput = ({ data }) => {
+const TextInput = ({ data, isValid, handleChange, value }) => {
   const classes = useStyles();
 
   return (
@@ -13,8 +13,12 @@ const TextInput = ({ data }) => {
       className="w-50"
       variant="outlined"
       size="small"
+      value={value}
+      name={data?.name || ""}
       type={data?.type || "text"}
       label={data?.label || ""}
+      error={isValid}
+      onChange={(e) => handleChange(e)}
       sx={{
         "& .MuiOutlinedInput-root": {
           "&:hover fieldset": {
