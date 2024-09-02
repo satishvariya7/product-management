@@ -3,10 +3,12 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import RootReducer from "./Components/Redux/RootReducer";
-import { createStore } from "redux";
+import RootReducer from "./Redux/RootReducer";
+import { applyMiddleware, createStore } from "redux";
 import { Provider } from "react-redux";
-const store = createStore(RootReducer);
+import { thunk } from "redux-thunk";
+
+const store = createStore(RootReducer, applyMiddleware(thunk));
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

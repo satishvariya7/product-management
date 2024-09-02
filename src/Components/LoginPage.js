@@ -6,6 +6,7 @@ import TextInput from "./TextInput";
 import { login, registration } from "./Utils";
 import ButtonElement from "./ButtonElement";
 import { connect } from "react-redux";
+import { addRegisteredUser } from "./API's/apiCall";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -24,6 +25,7 @@ const useStyles = makeStyles((theme) => ({
 
 const LoginPage = (props) => {
   const classes = useStyles();
+  const { existEmail } = props;
   const [page, setPage] = useState(true);
   const [loginData, setLoginData] = useState({ email: "", password: "" });
   const [logValidation, setLogValidation] = useState({
@@ -65,7 +67,6 @@ const LoginPage = (props) => {
   };
   // -------------------------------------------------------------------------------------------------
   const regFormChange = (e) => {
-    debugger;
     setRegisterData({
       ...registerData,
       [e.target.name]: e.target.value.trim(),
@@ -88,6 +89,7 @@ const LoginPage = (props) => {
   const handleSignUpClick = () => {
     const isValid = registerValidation();
     if (isValid) {
+      props.addRegisteredUser(registerData);
     }
   };
   // -------------------------------------------------------------------------------------------------
@@ -168,6 +170,7 @@ const LoginPage = (props) => {
                     handleChange={regFormChange}
                     isValid={regValidation[item?.name] || false}
                     value={registerData[item?.name] || ""}
+                    existEmail
                   />
                 </Grid2>
                 {regValidation[item?.name] && (
@@ -175,6 +178,11 @@ const LoginPage = (props) => {
                     <span className={classes.empty}>
                       {item?.label} is empty!
                     </span>
+                  </Grid2>
+                )}
+                {existEmail === true && (
+                  <Grid2 xs={12}>
+                    <span className={classes.empty}>Email not valid!</span>
                   </Grid2>
                 )}
               </div>
@@ -195,9 +203,12 @@ const LoginPage = (props) => {
 const mapStateToProps = (state) => {
   return {
     users: state.usersData.users,
+    existEmail: state.usersData.users,
   };
 };
-const mepDispatchToProps = {};
+const mepDispatchToProps = {
+  addRegisteredUser,
+};
 
 // export default LoginPage
 export default connect(mapStateToProps, mepDispatchToProps)(LoginPage);

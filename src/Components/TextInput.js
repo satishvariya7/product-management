@@ -5,7 +5,7 @@ import { TextField } from "@mui/material";
 
 const useStyles = makeStyles((theme) => ({}));
 
-const TextInput = ({ data, isValid, handleChange, value }) => {
+const TextInput = ({ data, isValid, handleChange, value, existEmail }) => {
   const classes = useStyles();
 
   return (
@@ -17,7 +17,7 @@ const TextInput = ({ data, isValid, handleChange, value }) => {
       name={data?.name || ""}
       type={data?.type || "text"}
       label={data?.label || ""}
-      error={isValid}
+      error={isValid || existEmail === true}
       onChange={(e) => handleChange(e)}
       sx={{
         "& .MuiOutlinedInput-root": {
